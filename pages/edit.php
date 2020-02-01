@@ -1,6 +1,6 @@
 <?php
 session_start();
-$login_page = "/autho.html";
+$login_page = "pages/autho.html";
 if ($_SESSION['logged_in'] !== True) {
     header("Location: $login_page");
 }
@@ -37,16 +37,16 @@ if (isset($_POST['id'])) {
 if (isset($_GET['id'])) {
     $filter = ' WHERE id  = \'' . $_GET['id'] . '\' ';
     $resources = pg_query("SELECT * FROM resource " . $filter . ' ORDER BY id');
-    } else {
-        die("ID error");
-    }
+} else {
+    die("ID error");
+}
 
 pg_close($db_connection);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    include "./heade.html";
+include "./heade.html";
 ?>
 <body>
 <div class="container">
@@ -68,16 +68,24 @@ pg_close($db_connection);
                 while ($row = pg_fetch_assoc($resources)) {
                     echo "<tr>";
                     echo "<th scope='row'><input name='id' type='hidden' value='" . $row['id'] . "'> " . $row['id'] . "</th>";
-                    echo "<th ><input name='resource_name'  value='" . $row['resource_name'] . "'></th>";
-                    echo "<th ><input name='resource_url' value='" . $row['resource_url'] . "'></th>";
-                    echo "<th ><input name='category' value='" . $row['category'] . "'></th>";
-                    echo "<th ><input name='status' value='" . $row['status'] . "'></th>";
+                    echo "<th ><input name='resource_name' class='form-control'  value='" . $row['resource_name'] . "'></th>";
+                    echo "<th ><input name='resource_url' class='form-control' value='" . $row['resource_url'] . "'></th>";
+                    echo "<th><select name='category' class='custom-select' id='inputGroupSelect01'>
+                            <option>Video</option>
+                            <option>Music</option>
+                            <option>Books</option>
+                            <option>Documents</option>
+                            </select></th>";
+                    echo "<th><select name='status' class='custom-select' id='inputGroupSelect01'>
+                            <option>no active</option>
+                            <option>active</option>
+                            </select></th>";
                     echo "</tr>";
                 }
                 ?>
                 </tbody>
             </table>
-            <input type="submit" value="Save">
+            <button class="btn btn-primary" type='submit'>Save</button>
         </form>
     </div>
     <p>For <a href="/exit.php">exit</a></p>

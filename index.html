@@ -1,0 +1,30 @@
+<?php
+    if($_COOKIE['user'] == ''):
+?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Форма регистрации</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container mt-4">
+      <div class="jumbotron">
+        <h1>Register Form</h1>
+        <form class="" action="validation_form/check.php" method="post" >
+           <div class="form-group">
+             <input id="login" class="form-control" type="text" name="login" value="" placeholder="Your email">
+           </div>
+            <div class="form-group">
+          <input id="pswd" class="form-control" type="password" name="pswd" value="" placeholder="Ener your password">
+          </div>
+          <div class="form-group">
+          <textarea name="cont" rows="8" cols="80" placeholder="Leave you contact information" method="post"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

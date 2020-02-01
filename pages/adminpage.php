@@ -10,10 +10,10 @@ $conn_string = "host=localhost dbname=adminUser user=homestead password=secret";
 $db_connection = pg_connect($conn_string);
 $filter = '';
 if (isset($_GET['status']))
-    $filter = ' WHERE status = \'' . $_GET['status'] . '\' ';
+    $filter = ' AND status = \'' . $_GET['status'] . '\' ';
 
 if (isset($_GET['category']))
-    $filter = ' WHERE category = \'' . $_GET['category'] . '\' ';
+    $filter = ' AND category = \'' . $_GET['category'] . '\' ';
 
 $per_page = 15;
 
@@ -29,8 +29,9 @@ $page = $_GET['page'];
 $off_set = $per_page * $page_off;
 
 $off_set = ' offset ' . $off_set;
-$resources = pg_query("SELECT * FROM resource " . $filter . ' WHERE user_id = ' .$user_id.' ORDER BY id limit ' . $per_page . $off_set);
-$count = pg_query("SELECT count(*) FROM resource  WHERE user_id = $user_id " );
+$sql = "SELECT * FROM resource  WHERE user_id = ${user_id} ${filter}  ORDER BY id limit  ${per_page}  ${off_set}";
+$resources = pg_query($db_connection, $sql);
+$count = pg_query("SELECT count(*) FROM resource  WHERE user_id = ${user_id} " );
 $pages = ceil($count / $per_page);
 pg_close($db_connection);
 
@@ -91,7 +92,6 @@ pg_close($db_connection);
                 <th scope="col">Actions</th>
                 <th scope="col">URL`s</th>
             </tr>
-<!--            <script type="text/javascript" src='http://testexer.test/js/click.php?id=1'></script>-->
             </thead>
             <tbody>
             <?php
@@ -103,16 +103,16 @@ pg_close($db_connection);
                 echo "<th>" . $row['category'] . "</th>";
                 echo "<th>" . $row['status'] . " </th>";
                 echo "<th>". "<a href='/pages/edit.php?id=" . $row['id'] . "'><button id='actions' class='btn btn-primary' type='button'>Edit</button></a>/
-                    <form action='/pages/delete.php' method='post'> <input type='hidden' name='id' value='" . $row['id'] . "'><button id='actions' class='btn btn-danger' type='submit'>Delete</button> </form> ";
-                echo "<th>" . "<a href='/pages/statistic.php?id=" . $row['id'] . "'><button id='actions' class='btn btn-primary' type='button'>Statistic</button></a> </th>";
-               echo "<th><textarea><script type=\"text/javascript\" src='http://testexer.test/js/visits.php?id=${row['id']}'></script></textarea> </th>";
+                    <form action='/pages/delete.php' method='post'> <input type='hidden' name='id' value='" . $row['id'] . "'><button id='actions' class='btn btn-danger' type='submit'>Delete</button> </form> </th>";
+                echo "<th>" . "<a href='/pages/statistic2.php?id=" . $row['id'] . "'><button id='actions' class='btn btn-primary' type='button'>Statistic</button></a> </th>";
+                echo "<th><textarea><script type=\"text/javascript\" src='http://testexer.test/js/visits.php?id=${row['id']}'></script></textarea> </th>";
                 echo "</tr>";
             }
             ?>
             </tbody>
         </table>
         <a href="/pages/insert.php"><button id="add" class="btn btn-primary" type='button'>Add</button></a>
-            <nav aria-label="...">
+            <nav aria-label="..." style="margin-top: 5px">
                 <ul class="pagination pagination-lg">
                     <?php
                     if ($page - 1 > 0):

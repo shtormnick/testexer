@@ -23,15 +23,13 @@ $sql = "
             cl.resource_id as ct_id,
             cl.count as click,
             v.count as visits,
-            v.visit_time
+            to_char(v.visit_time, 'YY.MM.DD HH:MI')
         from clicks cl
         inner join  visits v on cl.resource_id = v.resource_id
         inner join resource r on cl.resource_id = r.id
         inner join users u on r.user_id = u.id "
     . $where .
     " ORDER BY v.visit_time;";
-var_dump($sql);
-die();
 $statistic = pg_query($sql);
 
 pg_close($db_connection);
@@ -47,6 +45,7 @@ pg_close($db_connection);
     ?>
 </head>
 <body>
+
 <div class="container">
     <div class="jumbotron">
         <!--        <div class="alert alert-primary">-->
@@ -58,30 +57,6 @@ pg_close($db_connection);
         //            ?>
         <!--        </div>-->
         <h1>Statistic of resource </h1>
-        <div class="d-flex">
-            <div class="dropdown mr-1">
-                <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenu1"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                    Status
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                    <a class="dropdown-item" href="?status=active">Active</a>
-                    <a class="dropdown-item" href="?status=no active">No active</a>
-                    <a class="dropdown-item" href="/pages/adminpage.php">All</a>
-                </div>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle " id="dropdownMenu2"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-                    Category
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <a class="dropdown-item" href="?category=Video">Video</a>
-                    <a class="dropdown-item" href="?category=Music">Music</a>
-                    <a class="dropdown-item" href="/pages/adminpage.php">All</a>
-                </div>
-            </div>
-        </div>
         <table class="table table-dark">
             <thead>
             <tr>

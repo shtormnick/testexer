@@ -7,7 +7,7 @@ $sql = "
     INSERT INTO visits (resource_id,ip, visit_time, count, date)
     VALUES (${_GET['id']},'${_SERVER['SERVER_ADDR']}', now(), 1, now())
     ON CONFLICT (ip,resource_id,date) DO UPDATE
-    SET count = excluded.count + visits.count;
+    SET count = excluded.count + visits.count, visit_time = now();
     ";
 $db_connection = pg_query($db_connection, $sql);
 

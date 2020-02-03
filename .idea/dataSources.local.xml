@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="adminUser@localhost" uuid="122211a1-7016-49dc-96a1-960161c9d3fa">
+      <database-info product="PostgreSQL" version="11.5 (Ubuntu 11.5-1.pgdg18.04+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.5" dbms="POSTGRES" exact-version="11.5" exact-driver-version="42.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>homestead</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="@">
+            <node kind="schema" qname="@" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+      <ssh-properties>
+        <enabled>true</enabled>
+        <proxy-host>192.168.10.10</proxy-host>
+        <proxy-port>22</proxy-port>
+        <secret-storage>master_key</secret-storage>
+        <user>vagrant</user>
+        <use-password>true</use-password>
+        <auth-type>PASSWORD</auth-type>
+        <private-key-path>~/.ssh/id_rsa</private-key-path>
+      </ssh-properties>
+    </data-source>
+  </component>
+</project>

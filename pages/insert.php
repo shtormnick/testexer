@@ -7,6 +7,9 @@ if ($_SESSION['logged_in'] !== True) {
 
 $conn_string = "host=localhost dbname=adminUser user=homestead password=secret";
 $db_connection = pg_connect($conn_string);
+$user_id = $_SESSION['user_id'];
+
+
 
 function insertSQL($table, array $params)
 {
@@ -15,7 +18,6 @@ function insertSQL($table, array $params)
     return $sql;
 }
 if (isset($_POST['status'])) {
-    //var_dump($_POST);
     $params = $_POST;
     unset($params['id']);
     $sql = insertSQL('resource', $params);
@@ -56,6 +58,7 @@ include "./heade.html";
                 echo "<th ><input name='resource_url' class='form-control' placeholder='Resource URL'></th>";
                 echo "<th ><input name='category' class='form-control' placeholder='Category'></th>";
                 echo "<th ><input name='status' class='form-control' placeholder='Status'></th>";
+                echo "<th ><input type='hidden' name='user_id' class='form-control' placeholder='Status' value=". $user_id ."></th>";
                 echo "</tr>";
                 ?>
                 </tbody>
